@@ -54,12 +54,26 @@ def query():
 
     print_records = ''
     for record in records:
-        print_records += str(record[0]) + " " + \
-                         str(record[1]) + " " + "\t" + str(record[2]) + "\n"
+        print_records += str(record[3]) + " " + \
+                         str(record[0]) + " " + \
+                         "\t" + str(record[1]) + str(record[2]) + "\n"
 
     query_label = Label(win, text=print_records)
     query_label.grid(row=12, column=0, columnspan=2)
 
+    con.commit()
+    con.close()
+
+def delete():
+    con = sqlite3.connect('phone_book.db')
+    cc = con.cursor()
+    
+    try:
+        cc.execute("DELETE FROM phone_book WHERE oid = " + delete_box.get())
+    except sqlite3.OperationalError:
+        print(sqlite3.OperationalError)
+        messagebox.showwarning(title="Warning",
+                                message="Select ID field is empty")
     con.commit()
     con.close()
 
@@ -73,6 +87,9 @@ l_name.grid(row=1, column=1, padx=20, pady=(15, 0))
 phone_num = Entry(win, width = 30)
 phone_num.grid(row=2, column=1, padx=20, pady=(15, 0))
 
+delete_box = Entry(win, width=30)
+delete_box.grid(row=7, column=1, pady=15)
+
 # Create Labels
 f_name_label = Label(win, text="First Name", font=9)
 f_name_label.grid(row=0, column=0, pady=(15, 0), padx=(0,15))
@@ -83,10 +100,21 @@ l_name_label.grid(row=1, column=0, pady=(15, 0), padx=(0,15))
 phone_num_label = Label(win, text="Phone number", font=9)
 phone_num_label.grid(row=2, column=0, pady=(15, 0), padx=(15,5))
 
+delete_box_info = Label(win, 
+            text="Please enter record ID and press 'Delete Record'")
+delete_box_info.grid(row=6, column=0, columnspan=2)
+
+delete_box_label = Label(win, text="Select ID", font=9)
+delete_box_label.grid(row=7, column=0, pady=15)
+
+#Create Buttons
 submit_btn = Button(win, text="Submit record", command=submit)
 submit_btn.grid(row=3, column=0, columnspan=2, pady=10, ipadx=115)
 
 query_btn = Button(win, text="Show Records", command=query)
 query_btn.grid(row=4, column=0, columnspan=2, pady=10, ipadx=115)
+
+delete_btn = Button(win, text="Delete Record", command=delete)
+delete_btn.grid(row=8, column=0, columnspan=2, pady=10, ipadx=115)
 
 win.mainloop()
