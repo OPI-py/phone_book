@@ -3,11 +3,11 @@
 from tkinter import Tk, Entry, Button, Label, messagebox, END
 import sqlite3
 
-win = Tk()
-win.title("Database")
-win.iconbitmap("favicon.ico")
-win.geometry("350x400")
-win.resizable(0, 1)
+wnd = Tk()
+wnd.title("Database")
+wnd.iconbitmap("favicon.ico")
+wnd.geometry("350x400")
+wnd.resizable(0, 1)
 
 
 def create_db():
@@ -58,7 +58,7 @@ def query():
                          str(record[0]) + " " + \
                          "\t" + str(record[1]) + str(record[2]) + "\n"
 
-    query_label = Label(win, text=print_records)
+    query_label = Label(wnd, text=print_records)
     query_label.grid(row=12, column=0, columnspan=2)
 
     con.commit()
@@ -78,43 +78,43 @@ def delete():
     con.close()
 
 # Create Entry boxes
-f_name = Entry(win, width=30)
+f_name = Entry(wnd, width=30)
 f_name.grid(row=0, column=1, padx=20, pady=(15, 0))
 
-l_name = Entry(win, width=30)
+l_name = Entry(wnd, width=30)
 l_name.grid(row=1, column=1, padx=20, pady=(15, 0))
 
-phone_num = Entry(win, width = 30)
+phone_num = Entry(wnd, width = 30)
 phone_num.grid(row=2, column=1, padx=20, pady=(15, 0))
 
-delete_box = Entry(win, width=30)
+delete_box = Entry(wnd, width=30)
 delete_box.grid(row=7, column=1, pady=15)
 
 # Create Labels
-f_name_label = Label(win, text="First Name", font=9)
+f_name_label = Label(wnd, text="First Name", font=9)
 f_name_label.grid(row=0, column=0, pady=(15, 0), padx=(0,15))
 
-l_name_label = Label(win, text="Last Name", font=9)
+l_name_label = Label(wnd, text="Last Name", font=9)
 l_name_label.grid(row=1, column=0, pady=(15, 0), padx=(0,15))
 
-phone_num_label = Label(win, text="Phone number", font=9)
+phone_num_label = Label(wnd, text="Phone number", font=9)
 phone_num_label.grid(row=2, column=0, pady=(15, 0), padx=(15,5))
 
-delete_box_info = Label(win, 
+delete_box_info = Label(wnd, 
             text="Please enter record ID and press 'Delete Record'")
 delete_box_info.grid(row=6, column=0, columnspan=2)
 
-delete_box_label = Label(win, text="Select ID", font=9)
+delete_box_label = Label(wnd, text="Select ID", font=9)
 delete_box_label.grid(row=7, column=0, pady=15)
 
 #Create Buttons
-submit_btn = Button(win, text="Submit record", command=submit)
+submit_btn = Button(wnd, text="Submit record", command=submit)
 submit_btn.grid(row=3, column=0, columnspan=2, pady=10, ipadx=115)
 
-query_btn = Button(win, text="Show Records", command=query)
+query_btn = Button(wnd, text="Show Records", command=query)
 query_btn.grid(row=4, column=0, columnspan=2, pady=10, ipadx=115)
 
-delete_btn = Button(win, text="Delete Record", command=delete)
+delete_btn = Button(wnd, text="Delete Record", command=delete)
 delete_btn.grid(row=8, column=0, columnspan=2, pady=10, ipadx=115)
 
-win.mainloop()
+wnd.mainloop()
